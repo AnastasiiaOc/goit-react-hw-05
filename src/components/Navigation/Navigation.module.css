@@ -1,0 +1,17 @@
+.nav{
+    display:flex;
+    /* margin:0 auto; */
+    gap:20px;
+    font-size:24px;
+    color:black;
+}
+
+.link{
+    font-size:24px;
+    color:black;
+}
+
+.link.active{
+    font-size:24px;
+    color:rgba(30, 0, 255, 0.362);
+}
