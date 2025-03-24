@@ -1,9 +1,10 @@
-// import { useState } from 'react'
+
 import { Routes, Route } from 'react-router-dom'
 import Navigation from '../Navigation/Navigation'
 import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage'
 import HomePage from '../../pages/HomePage/HomePage'
 import MoviesPage from '../../pages/MoviesPage/MoviesPage'
+import MovieDetailsPage from '../../pages/MovieDetailsPage/MovieDetailsPage'
 
 // import HomePage from ""
 // import MoviesPage from "path/to/pages/MoviesPage"
@@ -19,6 +20,7 @@ function App() {
      <Routes>
       <Route path ="/" element ={<HomePage/>}/>
       <Route path ="/movies" element ={<MoviesPage/>}/>
+      <Route path ="/:movieId" element ={<MovieDetailsPage/>}/>
       <Route path ="*" element ={<NotFoundPage/>}/>
      </Routes>
     </>
