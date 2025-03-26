@@ -29,39 +29,12 @@ export async function SearchMovies({searchQuery}){
 //   .then(response => console.log(response))
 //   .catch(err => console.error(err));
 
-export const fetchUsers = async () => {
-  const resp = await axios.get('https://dummyjson.com/users');
-  return resp.data.users;
-};
-
-
 export const fetchMovieDetails = async (id) =>{
-
     const resp = await axios.get(`https://api.themoviedb.org/3/movie/${id}?language=en-US`, options)
-
-
-
     console.log(resp.data)
-
     return resp.data;
- 
-
 }
 
-//Movie details  - запит повної інформації про фільм для сторінки кінофільму
-// const URL_details =
-//   "https://api.themoviedb.org/3/movie/movie_id?language=en-US";
-//'https://api.themoviedb.org/3/movie/777443?language=en-US'
-
-
-
-
-
-// export const fetchMovies = async() => {
-//   const resp = await axios.get('https://api.themoviedb.org/3/trending/movie/day?language=en-US')
-//   console.log (resp);
-//   return resp.data;
-// }
 
 // export default async function fetchMovies() {
 export const fetchMovies = async() => {
@@ -72,4 +45,17 @@ export const fetchMovies = async() => {
     console.error("Eroor request:", error);
   }
 }
+
+
+export const fetchMovieCast = async(id) =>{
+
+  const resp = await axios.get('https://api.themoviedb.org/3/movie/${id}/credits?language=en-US', options);
+  console.log(resp.data)
+  return resp.data;
+
+}
+
+// export const fetchMovieReviews
+
+
 

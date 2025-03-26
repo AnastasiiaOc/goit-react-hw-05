@@ -20,7 +20,10 @@ function App() {
      <Routes>
       <Route path ="/" element ={<HomePage/>}/>
       <Route path ="/movies" element ={<MoviesPage/>}/>
-      <Route path ="/:movieId" element ={<MovieDetailsPage/>}/>
+      <Route path ="/:movieId" element ={<MovieDetailsPage/>}>
+      <Route path ="cast" element ={<div>cast content</div>}/>
+      <Route path ="reviews" element ={<div>reviews content</div>}/>
+      </Route>
       <Route path ="*" element ={<NotFoundPage/>}/>
      </Routes>
     </>
