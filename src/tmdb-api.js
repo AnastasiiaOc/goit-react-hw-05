@@ -13,17 +13,22 @@ const options = {
   }
 };
 
-export async function SearchMovies({searchQuery}){
-  options.params ={
-    query:searchQuery,
-    include_adult: false,
-    language: 'en-US',
-    page: 1,
-  };
-  const response = await axios.get("search/movie",options);
-  return (response.data.results)
+// export async function SearchMovies({searchQuery}){
+//   options.params ={
+//     query:searchQuery,
+//     include_adult: false,
+//     language: 'en-US',
+//     page: 1,
+//   };
+//   const response = await axios.get("search/movie",options);
+//   return (response.data.results)
 
-}
+// }
+
+export const SearchMovies = async query => {
+  const response = await axios.get(`https://api.themoviedb.org/3/search/movie?query=${query}`, options);
+  return response.data.results;
+};
 
 // axios.get(url, options)
 //   .then(response => console.log(response))
@@ -42,20 +47,36 @@ export const fetchMovies = async() => {
     const { data } = await axios.get('https://api.themoviedb.org/3/trending/movie/day?language=en-US', options);
     return data.results;
   } catch (error) {
-    console.error("Eroor request:", error);
+    console.error("Erorr request:", error);
   }
 }
 
 
 export const fetchMovieCast = async(id) =>{
 
-  const resp = await axios.get('https://api.themoviedb.org/3/movie/${id}/credits?language=en-US', options);
-  console.log(resp.data)
-  return resp.data;
-
+  const resp = await axios.get(`https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`, options);
+  return resp.data.cast;
 }
 
-// export const fetchMovieReviews
+// export const fetchMovieReviews = async(id) =>{
+
+//   const resp = await axios.get(`https://api.themoviedb.org/3/movie/${id}/reviews?language=en-US&page=1`, options);
+//   console.log (resp.data)
+//   return resp.data;
+// }
+
+export async function fetchMovieReviews(id) {
+  try {
+    const { data } = await axios.get(
+      `https://api.themoviedb.org/3/movie/${id}/reviews?language=en-US&page=1`,
+      options
+    );
+
+    return data;
+  } catch (error) {
+    console.log(`error reviews -${error}`);
+  }
+}
 
 
 

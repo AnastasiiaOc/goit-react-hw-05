@@ -1,5 +1,6 @@
-import { NavLink, Outlet, useParams } from "react-router-dom"
-import { useEffect, useState } from "react"
+import { NavLink, Outlet, useParams, useLocation, useNavigate} from "react-router-dom"
+
+import { Suspense, useEffect, useRef, useState } from "react";
 import { fetchMovieDetails } from "../../tmdb-api"
 
 

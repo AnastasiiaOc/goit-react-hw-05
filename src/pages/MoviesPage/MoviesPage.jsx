@@ -1,68 +1,65 @@
 import { SearchMovies } from '../../tmdb-api';
-// import axios from "axios";
 import { useSearchParams } from 'react-router-dom';
-// import MovieList from '../../components/MovieList/MovieList';
-// import Loader from '../../components/Loader/Loader'
-import toast, { Toaster } from 'react-hot-toast';
+import MovieList from '../../components/MovieList/MovieList';
+import Loader from '../../components/Loader/Loader'
 import { useState, useEffect } from 'react';
+import {useDebounce} from 'use-debounce';
 
 
-
-export default function SearchBar({onSearch}){
+export default function MoviesPage(){
 
     const [searchParams, setSearchParams] = useSearchParams();
     const [movies, setMovies] = useState([]);
-    // const [Loading, setLoading] = useState(false);
-    // const [error, setError] = useState(false)
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false)
    
-    // const [noResults, setNoResults] = useState(false);
-    // const [inputValue, setInputValue] = useState('');
-    const query = searchParams.get('query') || '';
+    const query = searchParams.get('query') ?? '';
+    const [debouncedQuery] = useDebounce(query, 1000);
 
-    function handleSubmit (evt){
-        evt.preventDefault();
-        const query = evt.target.elements.search.value.trim()
-        query === "" ? toast.error ("search query cannot be empty"): onSearch(query);
+  
+    const changeSearchText = event => {
+     
+        const nextParams = new URLSearchParams(searchParams);
+        if( event.target.value !== ""){
+          nextParams.set('query', event.target.value)
+        }else{
+          nextParams.delete('query')
 
-        evt.target.reset;
-
+        }
+        setSearchParams(nextParams);
     }
 
-
     useEffect(() =>{
-        async function fetchMovies(searchQuery) {
+    
+          async function getMovies() {
         try{ 
-        // setLoading(true)
-        // setMovies(data.hits) 
-        const data = await SearchMovies(searchQuery)
-        setMovies(data.results || [] )
+        setLoading(true)
+        setError(false)
+        const data = await SearchMovies(debouncedQuery)
+        setMovies(data)
         } catch {
-          console.log("error")
-            // setError(true);
+           setError(true);
         }
         finally{
-            // setLoading(false)
+            setLoading(false)
         }};
-        fetchMovies(query)
-    }, [query])
+        getMovies();
+    }, [debouncedQuery]);
 
-    return (<div>
-        <Toaster/>
-        <form onSubmit = {handleSubmit}>
-            
-      {/* {Loading && <Loader />} */}
-        <input type="text" 
-          autoComplete="off"
-          autoFocus
-          placeholder="Search mouvies"
-          name="search"/>
 
-        <button type="submit">Search</button>
-        </form>
-        {/* {error&& <p> There will be an error code</p>} */}
-        {/* <MovieList movies={movies} /> */}
-    </div>)
+
+
+    return (
+      <><div>
+      {error && <p>error with connection..</p>}
+      {/* <form onSubmit = {changeSearchText}> */}
+      <input type="text" value={query} onChange={changeSearchText} />
+      {/* <button type="submit">Search</button>
+      </form> */}
+      {(movies.length > 0) ? (<MovieList movies={movies}/>) : <p>No films match your search...</p>}
+  
+  </div>
+  {loading && <Loader/>}</>
+    )
 }
 
-
-// ========================================================================
