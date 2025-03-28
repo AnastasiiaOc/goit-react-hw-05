@@ -3,6 +3,8 @@ import { NavLink,Link, Outlet, useParams, useLocation} from "react-router-dom"
 import { Suspense, useEffect, useRef, useState } from "react";
 import { fetchMovieDetails } from "../../tmdb-api"
 
+import css from "../MovieDetailsPage/MovieDetailsPage.module.css"
+
 
 export default function MovieDetailsPage(){
 
@@ -61,14 +63,14 @@ export default function MovieDetailsPage(){
 
 
 
-<ul>
+<ul className ={css.link}>
     <li>
      {/* Vidnosnij URL we take off the slash:     <NavLink to ="/cast"/> Cast <NavLink/>    */}
-    <NavLink to ="cast"> Cast </NavLink>
+    <NavLink to ="cast" > Cast </NavLink>
     {/* <Link to="cast">Cast</Link> */}
     </li>
     <li>
-    <NavLink to ="reviews"> Reviews </NavLink>
+    <NavLink to ="reviews" > Reviews </NavLink>
 
     </li>  
 </ul>
