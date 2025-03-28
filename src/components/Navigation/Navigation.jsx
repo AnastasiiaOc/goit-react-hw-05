@@ -12,7 +12,7 @@ const navLinkClass = ({isActive}) =>{
 
 export default function Navigation (){
     return(<header>
-        <div>
+        <div className={css.header}>
             <nav className={css.nav}>
             <NavLink to = "/" className={navLinkClass}>Home </NavLink>
             <NavLink to ="/movies"className={navLinkClass}> Movies </NavLink>  

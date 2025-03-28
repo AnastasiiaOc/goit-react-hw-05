@@ -2,6 +2,8 @@ import { useParams } from "react-router-dom"
 import {fetchMovieCast} from "../../tmdb-api"
 import { useState, useEffect } from "react";
 
+import css from "../MovieCast/MovieCast.module.css"
+
 export default function MovieCast (){
    
     // const defaultImg =
@@ -25,7 +27,7 @@ export default function MovieCast (){
 
     return(
         <><b>Movie Cast</b>
-{cast.length > 0 && <ul>
+{cast.length > 0 && <ul className={css.castList}>
     {cast.map((actor, index) => (
           <li key = {actor.id}>
     {/* <li key = {`actor.id-${index}`}> */}

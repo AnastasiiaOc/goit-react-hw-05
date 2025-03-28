@@ -1,13 +1,14 @@
 // Для відображення списку фільмів створіть компонент MovieList. Використовуйте його на сторінках HomePage і MoviesPage.
 import { Link, useLocation} from 'react-router-dom';
+import css from "../MovieList/MovieList.module.css"
 
 // =========keep it======
 export default function MovieList ({movies}) { 
     const location = useLocation();
     return (  
-    <ul>
-{movies.map((movie) => (<li key ={movie.id}>
-            <Link to={`/${movie.id}`}  state={location}>{movie.title}</Link>
+    <ul className ={css.movielist}>
+{movies.map((movie) => (<li key ={movie.id} className={css.movieItem}>
+            <Link to={`/${movie.id}`} state={location}>{movie.title}</Link>
             <span> ({movie.release_date})</span>
 </li>)
 )} 

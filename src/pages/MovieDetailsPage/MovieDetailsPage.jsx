@@ -1,4 +1,4 @@
-import { NavLink, Outlet, useParams, useLocation, useNavigate} from "react-router-dom"
+import { NavLink,Link, Outlet, useParams, useLocation} from "react-router-dom"
 
 import { Suspense, useEffect, useRef, useState } from "react";
 import { fetchMovieDetails } from "../../tmdb-api"
@@ -11,6 +11,9 @@ export default function MovieDetailsPage(){
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(false);
 
+
+    const location = useLocation();
+    const backLinkRef = useRef(location.state)
     useEffect (() =>{
 
         async function getMovieDetails (){
@@ -34,6 +37,7 @@ export default function MovieDetailsPage(){
 
     return(
         <div>
+                <Link to = {backLinkRef.current}>Go back</Link>
     {isLoading && <b> Loading...</b>}
     {error && <b>Error occured..</b>}
  {/* <h2>Movie Details Page - {params.movieId}</h2> */}
@@ -69,12 +73,11 @@ export default function MovieDetailsPage(){
     </li>  
 </ul>
 
+<Suspense fallback ={<div>Loading Movie Details</div>}> 
 <Outlet/>
+</Suspense>
 
 </>
-
-
-
 )}
         </div>
     )
